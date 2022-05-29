@@ -1,0 +1,107 @@
+Empresa organizada em departamento, funcionários e gerente
+
+Funcionario = {
+Salário líquido = (Salário Bruto * 0.84) * 1.3
+	ID, 
+	Nome, 
+	Matricula, 
+	Cargo, 
+	Departamento, 
+	Salário
+}
+
+Gerente = {
+   Salário líquido = (Salário Bruto * 0.84) + (Salário Bruto * 0.5)
+	ID, 
+	Nome, 
+	Matricula, 
+	Cargo, 
+	Departamento, 
+	Salário
+	Setor
+}
+
+Departamento = {
+	ID,
+	Nome e Gerente
+
+}
+
+Açoes da aplicação { 
+	Registrar Venda,
+	Calcular montante de Venda,
+	Iniciar Caixa e Fechar Caixa
+}
+
+OBS: Um departamento só pode registrar vendas se o caixa tiver sido iniciado
+OBS2: A ação de iniciar caixa sempre recebe um valor de Troco, que deve ser devolvido no momento do fechamento.
+OBS3: Ao efetuar a venda você recebe o valor vendido e atualizar a lista de vendas do departamento.
+OBS4: Ao efetuar o Fechamento do caixa eu quero saber o montante de venda e o troco como retorno desse cálculo.
+OBS5: Ação de Calcular montante de venda SÓ pode ser acessada pelo método fechar Caixa.
+
+
+Criar duas camadas: 
+
+ACESSO AO DISCO e ACESSO AOS DADOS.
+
+ACESSO AO DISCO {
+ responsável por Manipular um arquivo 
+ com o nome de cada classe (Funcionario.txt, departamento.txt, gerente.txt)
+ e possui os atributos: Nome do Arquivo e os métodos: Abrir e Gravar.
+}
+ACESSO AOS DADOS { 
+ responsável por transformar o texto recuperado do arquivo 
+ em objetos e transformar os objetos em texto. 
+ Para isso ela possui os seguintes métodos: 
+	Salvar,
+	Atualizar,
+	Deletar,
+	RecuperarPoID,
+	Listar
+}
+Cada classe terá um {
+	espelho, 
+	funcionarioDAO, 
+	GerenteDAO e 
+	DepartamentoDAO, 
+}
+ que será responsável pelas ações de cada modelo.
+
+
+
+
+EX de criação de funcionário { 
+funcionario = new Funcionario()
+funcionario.setID(1)
+funcionario.setNome("Bruno")
+funcionario.setMatricula(123)
+funcionario.setCargo("Vendedor")
+funcionario.setDepartamento("Informatica")
+funcionario.setSalario(1500)
+
+funcionarioDAO = new FuncionarioDAO()
+funcionarioDAO.salvar(funcionario)
+
+Por exemplo se eu quiser Atualizar um funcionário:
+funcionarioDAO = new FuncionarioDAO()
+funcionario = funcionarioDAO.recuperarPoID(1)
+funcionario.setNome("Bruno Atualizado")
+funcionarioDAO.atualizar(funcionario)
+
+
+Por exemplo se eu quiser Deletar um funcionário:
+funcionarioDAO = new FuncionarioDAO()
+sucesso = funcionarioDAO.deletar(1)
+}
+
+Exigencias do programa: 
+
+1 - As classes de modelo (Funcionário, Gerente e Departamento) (3 pontos, 1 ponto cada classe)
+
+2- A classe de Acesso ao Disco (Uma única classe 2 pontos)
+
+3 - As classes de acesso aos Dados (FuncionárioDAO, GerenteDAO e DepartamentoDAO) (3 pontos, 1 ponto cada classe)
+
+4 - Código Legível (1 pontos)
+
+5 - Uso correto da Orientação a Objeto (1 ponto)
