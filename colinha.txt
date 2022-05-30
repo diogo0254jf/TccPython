@@ -1,32 +1,3 @@
-Empresa organizada em departamento, funcionários e gerente
-
-Funcionario = {
-Salário líquido = (Salário Bruto * 0.84) * 1.3
-	ID, 
-	Nome, 
-	Matricula, 
-	Cargo, 
-	Departamento, 
-	Salário
-}
-
-Gerente = {
-   Salário líquido = (Salário Bruto * 0.84) + (Salário Bruto * 0.5)
-	ID, 
-	Nome, 
-	Matricula, 
-	Cargo, 
-	Departamento, 
-	Salário
-	Setor
-}
-
-Departamento = {
-	ID,
-	Nome e Gerente
-
-}
-
 Açoes da aplicação { 
 	Registrar Venda,
 	Calcular montante de Venda,
