@@ -1,33 +1,47 @@
-'''
-Funcionario = {
-Salário líquido = (Salário Bruto * 0.84) * 1.3
-	ID, 
-	Nome, 
-	Matricula, 
-	Cargo, 
-	Departamento, 
-	Salário
-}
-'''
-class Funcionario:
-    def __init__(self, ID, Nome, Matricula, Cargo, Departamento, Salario: float):
+class Empresa:
+    def __init__(self, nome, cnpj):
+        self.nome = nome
+        self.cnpj = cnpj
+        self.funcionarios = []
+
+    def contrata(self, funcionario):
+        self.funcionarios.append(funcionario)
+
+    def lista_funcionarios(self):
+        for funcionario in self.funcionarios:
+            print(funcionario)
+            
+class Modo_de_Acesso:
+    def __init__(self, modoAcesso):
+        self.modoAcesso = modoAcesso
+        
+class Funcionario(Modo_de_Acesso):
+    def __init__(self, ID, Nome, Matricula, Cargo, Departamento, Salario: float, modoAcesso: str):
         self.ID = ID
         self.Nome = Nome
         self.Matricula = Matricula
         self.Cargo = Cargo
         self.Departamento = Departamento
         self.Salario = Salario
-    
-    def contratar(self,ID, Nome, Matricula, Cargo, Departamento, Salario: float):
-        arquivo = open("funcionarios.txt", "r")
-        arquivo.write(f"ID: {self.ID}\nNome: {self.Nome}\nMatricula: {self.Matricula}\nCargo: {self.Cargo}\nDepartamento: {self.Departamento}\nSalario: {self.Salario}\n") 
-        print("Funcionario Contratado") 
-'''
-Departamento = {
- 	ID,
- 	Nome e Gerente
-}
-'''
+        self.modoAcesso = modoAcesso
+
+    def contratar(self,modoAcesso):
+        if self.modoAcesso == 'Acesso ao disco':
+            if self.ID and self.Nome and self.Matricula and self.Cargo and self.Departamento and self.Salario:
+                with open('funcionario.txt','w') as testzada:
+                    testzada.write('Ficha de contratação funcionar') # insira seu conteúdo
+                    #arquivo.append(f'Nome: {self.Nome}')   # insira seu conteúdo
+                    #arquivo.append(f'Matricula: {self.Matricula}')   # insira seu conteúdo
+                    #arquivo.append(f'Cargo: {self.Cargo}')   # insira seu conteúdo
+                    #arquivo.append(f'Departamento: {self.Departamento}')   # insira seu conteúdo
+                    #arquivo.append(f'Salário: {self.Salario}')   # insira seu conteúdo
+                    #arquivo.close()
+                print(f'Funcionário {self.Nome} contratado com sucesso!')
+            else:
+                print('Erro ao contratar funcionário!\nMotivo: Está faltando dados para a contratação')
+        else:
+            print('Erro ao contratar funcionário!\nMotivo: O modo de acesso não é válido')
+
 class Departamento(Funcionario):
     def __init__(self, Departamento, ID, Nome, Gerente):
         self.Departamento = Departamento
@@ -35,28 +49,11 @@ class Departamento(Funcionario):
         self.Nome = Nome
         self.Gerente = Gerente
     
-'''
-Gerente = {
- 	ID, 
- 	Nome, 
- 	Matricula, 
- 	Cargo, 
- 	Departamento, 
- 	Salário
- 	Setor
-}
-'''
 class Gerente(Funcionario):
     def __init__(self, Salario: float,Departamento):
         self.Departamento = Departamento
         self.Salario = (Salario * 0.84) + (Salario * 0.5)
-    
 
-class Modo_de_Acesso:
-    def __init__(self, modoAcesso):
-        self.modoAcesso = modoAcesso
-    pass
 
-NewContact = Funcionario(1, "João", "123", "Programador", "TI", "1000")
-
-NewContact.contratar()
+teste = Funcionario('1','João','12345','Programador','TI','R$ 1.000,00','Acesso ao disco')
+teste.contratar('Acesso ao disco')
