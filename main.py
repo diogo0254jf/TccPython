@@ -1,7 +1,9 @@
+import time
+
 class Modo_de_Acesso():
     def __init__(self, modoAcesso):
         self.modoAcesso = modoAcesso
-        
+
 class Funcionario(Modo_de_Acesso):
     def __init__(self, ID, Nome, Matricula, Cargo, Departamento, Salario: float, modoAcesso: str):
         self.ID = ID
@@ -39,12 +41,12 @@ class Departamento(Funcionario):
         self.Gerente = Gerente
     
     def NovoDepartamento(self):
-        with open("Departamento.txt",'a', encoding='utf-8') as arquivo:
+        with open("Departamento.txt",'Departamento.txt', encoding='utf-8') as arquivo:
             arquivo.write(f'Departamento: {self.Departamento} \nNome: {self.Nome}\nGerente: {self.Gerente}\n\n')
             print(f'Departamento {self.Nome} criado com sucesso!')
 
 class Gerente(Funcionario):
-    def __init__(self, ID, Nome, Matricula, Cargo, Departamento, Salario: float, modoAcesso: str):
+    def __init__(self, Salario: float, modoAcesso: str):
         self.Salario = (Salario * 0.84) + (Salario * 0.5)
 
     def novo_gerente(self):
@@ -59,29 +61,34 @@ class Caixa():
         self.Departamento = Departamento
         self.Salario = Salario
 
-    def novo_caixa(self):
+    @property
+    def newcaixa(self):
         with open("Caixa.txt",'a', encoding='utf-8') as arquivo:
             arquivo.write(f'Funcionario \nNome: {self.Nome}\nDepartamento: {self.Departamento}\nSalário: {self.Salario}\n\n')
             print(f'Caixa criado com sucesso!')
 
+    @newcaixa.setter
     def registrar_venda(self):
         with open("Caixa.txt",'a', encoding='utf-8') as arquivo:
             arquivo.write(f'Venda \nID: {self.ID}\nProduto: {self.produto}\nQuantidade: {self.quantidade}\nValor: {self.valor}\n\n')
             print(f'Venda registrada com sucesso!')
+
     def Deletar_venda():
         with open("Caixa.txt",'r', encoding='utf-8') as arquivo:
             arquivo.write(f'Venda deletada!\n\n')
             print(f'Venda deletada!')
+
+    @newcaixa.setter
     def iniciar_caixa():
         with open("Caixa.txt",'r', encoding='utf-8') as arquivo:
             arquivo.write(f'Caixa aberto!\n\n')
             print(f'Caixa aberto!')
 
+    @newcaixa.deleter
     def fechar_caixa():
         with open("Caixa.txt",'a', encoding='utf-8') as arquivo:
             arquivo.write(f'Caixa fechado!\n\n')
             print(f'Caixa fechado!')
-
 
 def contratar_Funcionario():
     ID = input('Digite o ID do funcionário: ')
@@ -90,7 +97,7 @@ def contratar_Funcionario():
     Cargo = input('Digite o cargo do funcionário: ')
     Departamento = input('Digite o departamento do funcionário: ')
     Salario = float(input('Digite o salário do funcionário: '))
-    acesso = input('Digite o modo de acesso do funcionário\n1 - Acesso ao disco\n2 - Acesso ao dados')
+    acesso = input('Digite o modo de acesso do funcionário\n1 - Acesso ao disco\n2 - Acesso ao dados\n')
     if acesso == '1':
         modoAcesso = 'Acesso ao disco'
     elif acesso == '2':
@@ -100,8 +107,7 @@ def contratar_Funcionario():
     
     contratar = Funcionario(ID, Nome, Matricula, Cargo, Departamento, Salario, modoAcesso)
     contratar.contratar()
-    print(ID, Nome, Matricula, Cargo, Departamento, Salario, modoAcesso)
-    
+
 def definir_ao_Departamento():
     ID = input('Digite o ID do funcionário: ')
     Gerente = input('Digite o nome do Gerente: ')
@@ -135,7 +141,6 @@ def Atualizar_dados_funcionario():
     
     atualizar = Funcionario(ID, Nome, Matricula, Cargo, Departamento, Salario, modoAcesso)
     atualizar.contratar()
-    print(ID, Nome, Matricula, Cargo, Departamento, Salario, modoAcesso)
 
 def Registrar_Venda():
     valor = float(input('Digite o valor do produto: '))
@@ -179,33 +184,47 @@ def Fechar_Caixa():
     caixa = Caixa()
     caixa.fechar_caixa()
 
-entrada = input("Minhas funçoes!\nACESSO AO DISCO\n1 - Contratar Funcionario\n2 - Definir ao Departamento\n3 - Promover a Gerente\n4 - Listar funcionarios\n5 - Atualizar dados funcionarion\nACESSO AOS DADOS\n6 - Salvar venda\n7 - Atualizar venda\n8 - Deletar venda\n9 - Recuperar por ID\n10 - Listar venda\n11 - Registrar Venda\n12 - Calcular montante de Venda\n13 - Iniciar Caixa\n14 - Fechar Caixa\n0 - Sair\n")
+def pegarInput():
+    entrada = input("Minhas funçoes!\nACESSO AO DISCO\n1 - Contratar Funcionario\n2 - Definir ao Departamento\n3 - Promover a Gerente\n4 - Listar funcionarios\n5 - Atualizar dados funcionarion\nACESSO AOS DADOS\n6 - Salvar venda\n7 - Atualizar venda\n8 - Deletar venda\n9 - Recuperar por ID\n10 - Listar venda\n11 - Registrar Venda\n12 - Calcular montante de Venda\n13 - Iniciar Caixa\n14 - Fechar Caixa\n0 - Sair\n")
+    if __name__ == "__main__":
+        match entrada:
+            case '1':
+                contratar_Funcionario()
+            case '2':
+                definir_ao_Departamento()
+            case '3':
+                Promover_a_Gerente()
+            case '4':
+                Listar_funcionarios()
+            case '5':
+                Atualizar_dados_funcionario()
+            case '6':
+                Registrar_Venda()
+            case '7':
+                Atualizar_venda()
+            case '8':
+                Deletar_venda()
+            case '9':
+                Recuperar_por_ID()
+            case '10':
+                Listar_venda()
+            case '11':
+                Registrar_Venda()
+            case '12':
+                Calcular_montante_de_Venda()
+            case '13':
+                Iniciar_Caixa()
+            case '14':
+                Fechar_Caixa()
+            case '0':
+                print('Saindo...')
+            case _:
+                print("Dados não encontrados.")
+                time.sleep(1)
+                print("Dados não encontrados..")
+                time.sleep(1)
+                print("Dados não encontrados...")
+                time.sleep(1)
+                pegarInput()
 
-if entrada == '1':
-    contratar_Funcionario()
-elif entrada == '2':
-    definir_ao_Departamento()
-elif entrada == '3':
-    Promover_a_Gerente()
-elif entrada == '4':
-    Listar_funcionarios()
-elif entrada == '5':
-    Atualizar_dados_funcionario()
-elif entrada == '6':
-    Atualizar_venda()
-elif entrada == '7':
-    Deletar_venda()
-elif entrada == '8':
-    Recuperar_por_ID()
-elif entrada == '9':
-    Listar_venda()
-elif entrada == '10':
-    Registrar_Venda()
-elif entrada == '11':
-    Calcular_montante_de_Venda()
-elif entrada == '12':
-    Iniciar_Caixa()
-elif entrada == '13':
-    Fechar_Caixa()
-elif entrada == '0':
-    print('Saindo...')
+pegarInput()
